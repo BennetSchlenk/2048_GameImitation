@@ -15,6 +15,10 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
+        var cam = Helper.Camera;
+        
+        cam.transform.position = new Vector3((boardWidth/2)-0.5f, (boardHeight/2)-0.5f,-10f);
+        cam.orthographicSize = (boardHeight / 2)+0.5f;
         grid = new Grid();
         grid.Init(boardWidth, boardHeight, nodePrefab, transform);
     }
