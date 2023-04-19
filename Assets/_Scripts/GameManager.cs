@@ -1,10 +1,10 @@
-﻿using Unity.Mathematics;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private Grid grid;
-
     [SerializeField]
     private int boardWidth;
 
@@ -13,24 +13,55 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private Node nodePrefab;
+
+    [SerializeField]
+    private Block blockPrefab;
     
     [SerializeField]
     private SpriteRenderer boardPrefab;
+    
+    [SerializeField]
+    private List<BlockType> blockTypes;
+    
+    private Board board;
+    private BlockType GetBlockTypeByValue(uint value) => blockTypes.FirstOrDefault(v => v.Value == value);
+    
 
     public void Start()
     {
-        var centerPos = new Vector3((boardWidth/2)-0.5f, (boardHeight/2)-0.5f,0f);
-
+        //Create Parent to spawn Objects under
         var parent = new GameObject("GameBoard");
-        
-        var cam = Helper.Camera;
-        cam.transform.position = new Vector3((boardWidth/2)-0.5f, (boardHeight/2)-0.5f,-10f);
-        cam.orthographicSize = (boardHeight / 2)+0.5f;
 
-        var board = Instantiate(boardPrefab, centerPos, quaternion.identity, parent.transform);
-        board.size = new Vector2(boardWidth, boardHeight);
+        //Set Camera to capture full board
+        var cam = Helper.Camera;
+        cam.transform.position = new Vector3((boardWidth / 2) - 0.5f, (boardHeight / 2) - 0.5f, -10f);
+        cam.orthographicSize = (boardHeight / 2) + 0.5f;
         
-        grid = new Grid();
-        grid.Init(boardWidth, boardHeight, nodePrefab, parent.transform);
+        this.board = new Board();
+        this.board.Init(boardWidth, boardHeight, nodePrefab, boardPrefab, parent.transform);
+
+        SpawnBlocks(2);
+    }
+
+    public void SpawnBlocks(int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            SpawnBlock();
+        }
+    }
+
+    public void SpawnBlock()
+    {
+        var oneFreeNode = board.Nodes.Where(n => n.occupyingBlock == null).OrderBy(o => UnityEngine.Random.value)
+            .Take(1).ToList();
+        var block = Instantiate(blockPrefab, oneFreeNode[0].Position, quaternion.identity);
+        block.Init(GetBlockTypeByValue(2));
+        board.Blocks.Add(block);
+    }
+
+    public void SetNodeOccupied(Vector2 pos)
+    {
+        //board.Nodes
     }
 }

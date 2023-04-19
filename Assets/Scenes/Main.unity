@@ -156,8 +156,33 @@ MonoBehaviour:
   boardHeight: 4
   nodePrefab: {fileID: -2789518763811045961, guid: 0ea40cd195ade2343aa4f4f698ddbad4,
     type: 3}
+  blockPrefab: {fileID: -5317914179645663929, guid: ee54121a408bd62459b63e4ffb5f8104,
+    type: 3}
   boardPrefab: {fileID: 5809491435706381907, guid: afab307069546da4f9dc46d1727aa8ea,
     type: 3}
+  blockTypes:
+  - Value: 2
+    color: {r: 1, g: 0.96148086, b: 0.6179246, a: 1}
+  - Value: 4
+    color: {r: 0.82778794, g: 1, b: 0.61960787, a: 1}
+  - Value: 8
+    color: {r: 0.61960787, g: 1, b: 0.70517695, a: 1}
+  - Value: 16
+    color: {r: 0.61960787, g: 1, b: 0.8815478, a: 1}
+  - Value: 32
+    color: {r: 0.61960787, g: 0.9591287, b: 1, a: 1}
+  - Value: 64
+    color: {r: 0.61960787, g: 0.7418021, b: 1, a: 1}
+  - Value: 128
+    color: {r: 0.76439416, g: 0.5518868, b: 1, a: 1}
+  - Value: 256
+    color: {r: 0.990566, g: 0.5186454, b: 0.94191426, a: 1}
+  - Value: 512
+    color: {r: 1, g: 0.4481132, b: 0.6074206, a: 1}
+  - Value: 1024
+    color: {r: 1, g: 0.4627018, b: 0.4009434, a: 1}
+  - Value: 2048
+    color: {r: 1, g: 0.6320268, b: 0.24056602, a: 1}
 --- !u!4 &777445272
 Transform:
   m_ObjectHideFlags: 0
