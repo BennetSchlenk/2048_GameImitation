@@ -16,16 +16,16 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private Block blockPrefab;
-    
+
     [SerializeField]
     private SpriteRenderer boardPrefab;
-    
+
     [SerializeField]
     private List<BlockType> blockTypes;
-    
+
     private Board board;
     private BlockType GetBlockTypeByValue(uint value) => blockTypes.FirstOrDefault(v => v.Value == value);
-    
+
 
     public void Start()
     {
@@ -34,9 +34,9 @@ public class GameManager : MonoBehaviour
 
         //Set Camera to capture full board
         var cam = Helper.Camera;
-        cam.transform.position = new Vector3((boardWidth / 2) - 0.5f, (boardHeight / 2) - 0.5f, -10f);
-        cam.orthographicSize = (boardHeight / 2) + 0.5f;
-        
+        cam.transform.position = new Vector3((boardWidth / 2f) - 0.5f, (boardHeight / 2f) - 0.5f, -10f);
+        cam.orthographicSize = (boardHeight / 2f) + 0.5f;
+
         this.board = new Board();
         this.board.Init(boardWidth, boardHeight, nodePrefab, boardPrefab, parent.transform);
 
@@ -55,13 +55,16 @@ public class GameManager : MonoBehaviour
     {
         var oneFreeNode = board.Nodes.Where(n => n.occupyingBlock == null).OrderBy(o => UnityEngine.Random.value)
             .Take(1).ToList();
-        var block = Instantiate(blockPrefab, oneFreeNode[0].Position, quaternion.identity);
-        block.Init(GetBlockTypeByValue(2));
-        board.Blocks.Add(block);
-    }
+        if (oneFreeNode.FirstOrDefault() == null)
+        {
+            //Game is Lost
+        }
+        else
+        {
+            var block = Instantiate(blockPrefab, oneFreeNode[0].Position, quaternion.identity);
+            block.Init(GetBlockTypeByValue(2));
+            board.Blocks.Add(block);
+        }
 
-    public void SetNodeOccupied(Vector2 pos)
-    {
-        //board.Nodes
     }
 }

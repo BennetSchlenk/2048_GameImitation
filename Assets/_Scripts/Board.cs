@@ -10,6 +10,11 @@ public class Board : MonoBehaviour
     private int width;
     private int height;
 
+    public int Width => width;
+    public int Height => height;
+
+
+
     public List<Node> Nodes { get; private set; } = new List<Node>();
     public List<Block> Blocks { get; private set; } = new List<Block>();
 
@@ -18,8 +23,8 @@ public class Board : MonoBehaviour
         width = gridWidth;
         height = gridHeight;
         
-        var centerPos = new Vector3((width/2)-0.5f, (height/2)-0.5f,0f);
-        
+        var centerPos = new Vector3((width/2f)-0.5f, (height/2f)-0.5f,0f);
+
         var board = Instantiate(boardPrefab, centerPos, quaternion.identity, parent.transform);
         board.size = new Vector2(width, height);
 
