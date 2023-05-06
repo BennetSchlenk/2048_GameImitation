@@ -49,6 +49,7 @@ MonoBehaviour:
   Value: 0
   renderer: {fileID: 3173503400767756463}
   text: {fileID: 964575724666940087}
+  Node: {fileID: 0}
 --- !u!1 &1727365710345584511
 GameObject:
   m_ObjectHideFlags: 0
