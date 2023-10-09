@@ -1,9 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Block : MonoBehaviour
 {
@@ -18,6 +15,8 @@ public class Block : MonoBehaviour
     
     public Vector2 Position => transform.position;
     public Node Node;
+    public Block BlockToMergeWith;
+    public bool IsMerging;
 
     public void Init(BlockType type)
     {
@@ -31,6 +30,18 @@ public class Block : MonoBehaviour
         if (Node != null) Node.occupyingBlock = null;
         newNode.occupyingBlock = this;
         Node = newNode;
+    }
+
+    public void MergeThisBlock(Block blockToMergeWith)
+    {
+        BlockToMergeWith = blockToMergeWith;
+        Node.occupyingBlock = null;
+        blockToMergeWith.IsMerging = true;
+    }
+
+    public bool CanMerge(uint blockValue)
+    {
+        return !IsMerging && BlockToMergeWith == null && blockValue == Value;
     }
 }
 
